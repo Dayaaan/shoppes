@@ -1,0 +1,11 @@
+boutique_front:
+    resource: "@BoutiqueFrontBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+boutique_produits:
+    resource: "@BoutiqueProduitsBundle/Controller/"
+    type:     annotation
+    prefix:   /boutique
+
+
