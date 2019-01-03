@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function shopAction()
     {
-        return $this->render('@BoutiqueFront/Default/shop.html.twig');
+        return $this->render('@BoutiqueProduits/Default/shop.html.twig');
     }
 }
