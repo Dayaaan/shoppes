@@ -16,8 +16,8 @@ class CategorieController extends Controller
     public function addCategorieAction()
     {
         $category = new Categorie();
-        $category->setNom('Fashion')
-                 ->setDescription("style fashion de ouf");
+        $category->setNom('Homme')
+                 ->setDescription("Categorie pour homme");
         
         $em = $this->getDoctrine()
                    ->getManager();
