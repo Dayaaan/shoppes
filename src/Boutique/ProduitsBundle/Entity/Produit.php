@@ -58,6 +58,18 @@ class Produit
     private $images;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Categorie")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categories;
+
+    /**
+     * @ORM\OneToOne(targetEntity="ImagePrincipale", cascade={"persist","remove"})
+     */
+    private $imagePrincipale;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -204,5 +216,63 @@ class Produit
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \Boutique\ProduitsBundle\Entity\Categorie $category
+     *
+     * @return Produit
+     */
+    public function addCategory(\Boutique\ProduitsBundle\Entity\Categorie $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \Boutique\ProduitsBundle\Entity\Categorie $category
+     */
+    public function removeCategory(\Boutique\ProduitsBundle\Entity\Categorie $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Set ImagePrincipale
+     *
+     * @param \Boutique\ProduitsBundle\Entity\ImagePrincipale $imagePrincipale
+     *
+     * @return Produit
+     */
+    public function setImagePrincipale(\Boutique\ProduitsBundle\Entity\ImagePrincipale $imagePrincipale = null)
+    {
+        $this->imagePrincipale = $imagePrincipale;
+
+        return $this;
+    }
+
+    /**
+     * Get ImagePrincipale
+     *
+     * @return \Boutique\ProduitsBundle\Entity\ImagePrincipale
+     */
+    public function getImagePrincipale()
+    {
+        return $this->imagePrincipale;
     }
 }
