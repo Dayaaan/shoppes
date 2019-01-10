@@ -3,7 +3,9 @@
 namespace Boutique\ProduitsBundle\Controller;
 
 use Boutique\ProduitsBundle\Entity\Categorie;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Boutique\ProduitsBundle\Form\CategorieType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -13,18 +15,39 @@ class CategorieController extends Controller
      * @Route("/addCategorie", name="addCategorie")
      */
 
-    public function addCategorieAction()
+    public function addCategorieAction(Request $request)
     {
         $category = new Categorie();
-        $category->setNom('Homme')
-                 ->setDescription("Categorie pour homme");
-        
-        $em = $this->getDoctrine()
-                   ->getManager();
-        $em->persist($category);
-        $em->flush(); 
 
-        return New Response("Catégorie ajouté");
+        $form = $this->createForm(CategorieType::class, $category);
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($category);
+            $entityManager->flush();
+    
+            return New Response("Categorie ajouté");
+        }
+
+        return $this->render("categorie/addcategorie.html.twig",
+            [
+                'form' => $form->createView()
+            ]);
+        
+        // $category = new Categorie();
+        // $category->setNom('Homme')
+        //          ->setDescription("Categorie pour homme");
+        
+        // $em = $this->getDoctrine()
+        //            ->getManager();
+        // $em->persist($category);
+        // $em->flush(); 
+
+        // return New Response("Catégorie ajouté");
     }
 
     /**

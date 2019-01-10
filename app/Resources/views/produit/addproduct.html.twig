@@ -1,0 +1,50 @@
+{% extends('layout.html.twig') %}
+
+{% block body %}
+    <h2 class="h3 mb-3 text-black">Add product</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="p-3 p-lg-5 border">
+                    {{form_start(form)}}
+                        {{ form_label(form.nomProduit) }}
+                        {{ form_errors(form.nomProduit) }}
+                        {{ form_widget(form.nomProduit) }}
+
+
+                        {{ form_label(form.description) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+
+
+                        {{ form_label(form.quantite) }}
+                        {{ form_errors(form.quantite) }}
+                        {{ form_widget(form.quantite) }}
+  
+
+                        {{ form_label(form.categories) }}
+                        {{ form_errors(form.categories) }}
+                        {{ form_widget(form.categories) }}
+
+
+                        {{ form_label(form.imagePrincipale.path) }}
+                        {{ form_errors(form.imagePrincipale.path) }}
+                        {{ form_widget(form.imagePrincipale.path) }}
+
+
+                        {{ form_label(form.imagePrincipale.alt) }}
+                        {{ form_errors(form.imagePrincipale.alt) }}
+                        {{ form_widget(form.imagePrincipale.alt) }}
+
+                        {{ form_label(form.prix) }}
+                        {{ form_errors(form.prix) }}
+                        {{ form_widget(form.prix) }}
+
+                    {{ form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+{% endblock body %}

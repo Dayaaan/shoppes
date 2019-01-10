@@ -21,9 +21,10 @@
           <p>{{ product.description }}</p>
           <em>Categorie : </em>
           {% for productCategory in product.categories %}
-          <em class="mb-4">{{ productCategory.nom }}</em>
+              <em class="mb-4">{{ productCategory }} {% if not loop.last %}/{% endif %} </em>  
           {% endfor %}
-          
+          <br>
+          <br>
           <p><strong class="text-primary h4">${{ product.prix }}</strong></p>
           <div class="mb-1 d-flex">
             <label for="option-sm" class="d-flex mr-3 mb-3">

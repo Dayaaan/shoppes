@@ -14,6 +14,7 @@ class CommandeController extends Controller
      */
 
     public function addOrder() {
+
         $commande = new Commande();
         $commande->setNom("Albert")
                  ->setPrenom("Jacques")
@@ -23,9 +24,10 @@ class CommandeController extends Controller
 
         $em = $this->getDoctrine()
                    ->getManager();
+                   
         $em->persist($commande);
         $em->flush();
 
-    return new Response("Commande ajoutée");
+        return new Response("Commande ajoutée");
     }
 }

@@ -4,6 +4,7 @@ namespace Boutique\ProduitsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Boutique\ProduitsBundle\Entity\Image;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -25,14 +26,20 @@ class Produit
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 15,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="nomProduit", type="string", length=255, nullable=true)
      */
     private $nomProduit;
 
     /**
      * @var float
-     *
+     * 
      * @ORM\Column(name="prix", type="float", nullable=true)
      */
     private $prix;

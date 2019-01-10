@@ -93,4 +93,8 @@ class Categorie
     {
         return $this->description;
     }
+
+    public function __toString() {
+        return $this->nom;
+    }
 }
