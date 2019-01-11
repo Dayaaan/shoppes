@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Boutique\ProduitsBundle\Entity\ImagePrincipale;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ProduitsController extends Controller
@@ -19,12 +20,14 @@ class ProduitsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository(Produit::class)->findAll();
+        $products = $em->getRepository(Produit::class)->sortProductByPrice();
 
         $categories = $em->getRepository(Categorie::class)->findAll();
 
-        dump($products);
-        dump($categories);
+        // $query = $repository->createQueryBuilder('p')
+        //                     ->orderBy('p.prix', 'ASC')
+        //                     ->getQuery();
+        // $products = $query->getResult();
 
         return $this->render('produits/produits.html.twig',
             [
@@ -170,4 +173,79 @@ class ProduitsController extends Controller
             ['product' => $product]
         );
      }
+
+     /**
+      * @Route("/searchProduct/{produit}/{price}" , name="searchProduct")
+      * @Route("/searchProduct/{produit}" , name="sortProductByName")
+      */
+
+      public function searchProductAction($produit, $price = null) {
+        
+        
+          $em = $this->getDoctrine()->getManager();
+
+
+          //$product = $em->getRepository(Produit::class)->findOneByNomProduit($produit);
+
+          $product = $em->getRepository(Produit::class)->findOneBy([
+              'nomProduit' => $produit,
+              'prix' => $price
+          ]);  
+          $categories = $em->getRepository(Categorie::class)->findAll();
+
+          
+              
+          $products = $em->getRepository(Produit::class)->sortProductByName($produit);
+
+          $errorMessages = [];
+          
+          if (!$products && !$product) {
+            
+            $errorMessages[] = "Pas de produis existants";  
+        } 
+
+          return $this->render("produits/produits.html.twig",
+                [
+                    'products' => $products,
+                    'categories' => $categories,
+                    'errorMessages' => $errorMessages
+                ]
+           );
+      }
+
+      /**
+       * @Route("/searchproducts" , name="searchproducts")
+       */
+      //FORMULAIRE SEARCH
+      
+       public function searchProductsAction(Request $request) {
+
+        // $_GET parameters
+        //$request->query->get('name');
+
+        // $_POST parameters
+        // $request->request->get('name');
+
+            $em = $this->getDoctrine()->getManager();
+
+            //POST
+            $search = $request->request->get('search');
+
+            $products = $em->getRepository(Produit::class)->sortProductByName($search);
+
+            $categories = $em->getRepository(Categorie::class)->findAll();
+
+            return $this->render("produits/produits.html.twig",
+                [
+                    'products' => $products,
+                    'categories' => $categories
+                ]
+            );
+
+            
+
+       }
+
+     
+
 }

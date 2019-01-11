@@ -3,6 +3,8 @@
 
 {% block body %}
 
+
+
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
@@ -54,7 +56,7 @@
                                 </figure>
                                 <div class="block-4-text p-4">
                                     <h3><a href="{{ path('displayProduct', {'id': product.id}) }}">{{ product.nomProduit }}</a></h3>
-                                    <p class="mb-0">{{ product.description }}</p>
+                                    <p class="mb-0">{{ product.description | slice(0,60) }}</p>
                                     <p class="text-primary font-weight-bold">${{ product.prix }}</p>
                                 </div>
                             </div>

@@ -24,7 +24,9 @@ class ProduitType extends AbstractType
                 ->add('categories')
                 ->add('imagePrincipale', ImagePrincipaleType::class)
                 ->add("Submit", SubmitType::class);
-    }/**
+    }
+    
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
